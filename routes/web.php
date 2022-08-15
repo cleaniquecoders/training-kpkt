@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,43 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/w1', 'welcome');
+
+Route::get('/w2', WelcomeController::class);
+
+Route::get('/w3', [WelcomeController::class, 'welcome']);
+
+
+
+
+// Route::get()
+// Route::post()
+// Route::put()
+// Route::patch()
+// Route::delete()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',
