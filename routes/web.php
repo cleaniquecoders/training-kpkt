@@ -29,6 +29,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+    require 'web/articles.php';
     require 'web/dashboard.php';
     require 'web/user.php';
 });

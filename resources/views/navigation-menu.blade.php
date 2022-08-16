@@ -18,6 +18,9 @@
                     <x-jet-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
                         {{ __('Manage Users') }}
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('articles.index') }}" :active="request()->routeIs('articles.index')">
+                        {{ __('Manage Articles') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 
@@ -159,6 +162,9 @@
             </x-jet-responsive-nav-link>
             <x-jet-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
                 {{ __('Manage Users') }}
+            </x-jet-responsive-nav-link>
+            <x-jet-responsive-nav-link href="{{ route('articles.index') }}" :active="request()->routeIs('articles.index')">
+                {{ __('Manage Artiles') }}
             </x-jet-responsive-nav-link>
         </div>
 
