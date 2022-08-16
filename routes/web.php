@@ -24,43 +24,12 @@ Route::get('/w2', WelcomeController::class);
 
 Route::get('/w3', [WelcomeController::class, 'welcome']);
 
-
-
-
-// Route::get()
-// Route::post()
-// Route::put()
-// Route::patch()
-// Route::delete()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    require 'web/dashboard.php';
+    require 'web/user.php';
 });
+
