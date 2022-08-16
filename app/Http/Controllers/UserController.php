@@ -14,7 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        // $users = User::all();
+        $search = data_get(request(), 'filters.search');
+
+        $users = User::query()
+            ->when(! empty($search), fn($query) => $query->where('name', 'like', '%'. $search .'%') )
+            ->paginate();
+
+        return view('users.index', compact('users'));
     }
 
     /**
