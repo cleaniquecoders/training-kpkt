@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -47,10 +48,14 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed']
         ]);
-
-        $user = User::create($request->only([
+        
+        $data = $request->only([
             'name', 'email', 'password'
-        ]));
+        ]);
+
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
 
         return redirect()->route('users.show', $user);
     }
