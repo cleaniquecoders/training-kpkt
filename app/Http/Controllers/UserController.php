@@ -42,7 +42,17 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed']
+        ]);
+
+        $user = User::create($request->only([
+            'name', 'email', 'password'
+        ]));
+
+        return redirect()->route('users.show', $user);
     }
 
     /**
@@ -78,7 +88,16 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+
+        $user->update($request->only([
+            'name'//, 'email'
+        ]));
+
+        return redirect()->route('users.show', $user);
     }
 
     /**
