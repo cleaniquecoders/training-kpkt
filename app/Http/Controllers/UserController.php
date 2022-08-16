@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return 'hi';
+        return view('users.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -46,7 +46,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        
+        return view('users.show', compact('user'));
+        // return view('users.show', ['user' => $user]);
+        // return view('users.show')->with('user', $user);
     }
 
     /**
@@ -57,7 +59,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', compact('user'));
     }
 
     /**
