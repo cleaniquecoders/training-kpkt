@@ -11,12 +11,31 @@
                 {{ $users->links() }}
             </div>
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                
+
                 <ol class="px-4 py-4">
                     @foreach ($users as $user)
-                        <li class="py-2">{{ $user->name }}</li>
+                        <li class="py-2">
+                            <a href="{{ route('users.show', $user) }}" class="hover:text-blue-700">
+                                {{ $user->name }}
+                            </a>
+                            <div class="inline-flex">
+                                <a href="{{ route('users.edit', $user) }}" class="mt-1 text-sm text-gray-500 hover:text-blue-700">
+                                    edit
+                                </a>
+                                <span class="mx-1">|</span>
+                                <form id="user-{{ $user->id }}" action="{{ route('users.destroy', $user) }}" method="POST">
+                                    @csrf @method('DELETE')
+                                    <a href="#" onclick="event.preventDefault();if(confirm('Are you sure want to delete this record?')) {
+                                            document.getElementById('user-{{ $user->id }}').submit();
+                                        }"
+                                        class="text-sm text-gray-500 hover:text-red-700">
+                                        delete
+                                    </a>
+                                </form>
+                            </div>
+                        </li>
                     @endforeach
-                </ol>  
+                </ol>
             </div>
 
             <div class="flex justify-end w-full pt-4">
