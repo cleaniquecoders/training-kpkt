@@ -23,10 +23,10 @@
                                     edit
                                 </a>
                                 <span class="mx-1">|</span>
-                                <form id="user-{{ $user->id }}" action="{{ route('users.destroy', $user) }}" method="POST">
+                                <form action="{{ route('users.destroy', $user) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <a href="#" onclick="event.preventDefault();if(confirm('Are you sure want to delete this record?')) {
-                                            document.getElementById('user-{{ $user->id }}').submit();
+                                            this.closest('form').submit();
                                         }"
                                         class="text-sm text-gray-500 hover:text-red-700">
                                         delete
