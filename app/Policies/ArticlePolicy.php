@@ -21,6 +21,11 @@ class ArticlePolicy
         return auth()->user();
     }
 
+    public function isOwner(User $user, Article $article)
+    {
+        return $user->id === $article->user_id;
+    }
+
     /**
      * Determine whether the user can view the model.
      *

@@ -24,7 +24,7 @@
                                 <div class="text-sm text-gray-500">{{ $article->user->name }}</div>
                             </a>
                             <div class="inline-flex">
-                                @can('update', $article)
+                                @can('isOwner', $article)
                                     <a href="{{ route('articles.edit', $article) }}"
                                         class="mt-1 text-sm text-gray-500 hover:text-blue-700">
                                         edit
