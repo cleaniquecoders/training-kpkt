@@ -21,6 +21,11 @@
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
+            @if(session()->has('message'))
+                <div class="w-full p-4 text-center text-green-700 bg-green-200">
+                    {{ session('message') }}
+                </div>
+            @endif
 
             <!-- Page Heading -->
             @if (isset($header))

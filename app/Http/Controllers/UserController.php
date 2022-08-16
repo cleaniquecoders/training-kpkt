@@ -48,7 +48,7 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'confirmed']
         ]);
-        
+
         $data = $request->only([
             'name', 'email', 'password'
         ]);
@@ -56,6 +56,8 @@ class UserController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user = User::create($data);
+
+        session()->flash('message', __('You have successfully created new user.'));
 
         return redirect()->route('users.show', $user);
     }
@@ -102,6 +104,8 @@ class UserController extends Controller
             'name'//, 'email'
         ]));
 
+        session()->flash('message', __('You have successfully update a user.'));
+
         return redirect()->route('users.show', $user);
     }
 
@@ -114,6 +118,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        session()->flash('message', __('You have successfully delete a user.'));
 
         return redirect()->route('users.index');
     }
