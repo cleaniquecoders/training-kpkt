@@ -1,36 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Update User') }}
+            {{ __('Update Article by ') . $article->user->name }} 
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-
-                {{-- <x-jet-validation-errors class="mb-4" /> --}}
-
-                <form method="POST" action="{{ route('users.update', $user) }}">
+                <form method="POST" action="{{ route('articles.update', $article) }}">
                     @csrf @method('PUT')
 
                     <div>
-                        <x-jet-label for="name" value="{{ __('Name') }}" />
-                        <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name', $user->name)" required autofocus autocomplete="name" />
-                        <x-jet-input-error for="name" class="mt-2" />
-                    </div>
-
-                    <div class="mt-4">
-                        <x-jet-label for="email" value="{{ __('Email') }}" />
-                        <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email"
-                            :value="old('email', $user->email)" disabled  />
-                        <x-jet-input-error for="email" class="mt-2" />
+                        <x-jet-label for="title" value="{{ __('Title') }}" />
+                        <x-jet-input id="title" class="block mt-1 w-full" type="text" name="title"
+                            :value="old('title', $article->title)" required autofocus autocomplete="title" />
+                        <x-jet-input-error for="title" class="mt-2" />
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
                         <x-jet-button class="ml-4">
-                            {{ __('Update User') }}
+                            {{ __('Update Article') }}
                         </x-jet-button>
                     </div>
                 </form>

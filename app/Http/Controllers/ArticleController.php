@@ -44,6 +44,8 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        $this->authorize('create', Article::class);
+
         $data = $request->only([
             'title', 'content'
         ]);
@@ -75,6 +77,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
+        
         return view('articles.edit', compact('article'));
     }
 
@@ -87,6 +91,7 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+        $this->authorize('update', $article);
 
         $article->update($request->only([
             'title', 'content'
@@ -105,6 +110,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
+
         $article->delete();
 
         session()->flash('message', __('You have successfully delete a article.'));
