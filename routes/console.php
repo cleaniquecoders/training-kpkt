@@ -3,10 +3,12 @@
 use App\Mail\SendWelcomeMail;
 use App\Models\User;
 use App\Notifications\Welcome;
+use Illuminate\Encryption\Encrypter;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +64,23 @@ Artisan::command('decrypt {value}', function () {
     $this->info($decrypted_value);
     
 })->purpose('Encrypt given value');
+
+
+Artisan::command('encrypt-custom {value}', function() {
+    $value = $this->argument('value');
+
+    $this->comment('Using Default Key');
+    $this->info("");
+    $encrypted_value = encrypt($value);
+
+    $this->info($encrypted_value);
+    $this->info("");
+
+    $this->comment('Using Custom Key');
+    $this->info("");
+
+    $encrypter = new Encrypter(Str::random(32), config('app.cipher'));
+    $encrypted_value = $encrypter->encryptString($value);
+    $this->info($encrypted_value);
+    $this->info("");
+});
