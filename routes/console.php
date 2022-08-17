@@ -1,7 +1,9 @@
 <?php
 
+use App\Mail\SendWelcomeMail;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,12 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('send:mail {email}', function () {
+    $email = $this->argument('email');
+
+    Mail::to($email)
+        ->send(new SendWelcomeMail());
+
+    $this->info("Email successfully sent to $email");
+})->purpose('Send welcome email to given email');
