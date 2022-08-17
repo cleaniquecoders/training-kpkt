@@ -46,7 +46,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {
-        return auth()->user();
+        return $user->hasRole('author');
     }
 
     /**
@@ -58,7 +58,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->id === $article->user_id;
+        return $user->id === $article->user_id && $user->hasRole('author');
         // @can('update', $article)
         // $this->authorize('update', $article)
         // Gate::allow('update', $article)

@@ -16,7 +16,7 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        User::inRandomOrder()->limit(rand(1,100))
+        User::role('author')
             ->get()
             ->each(function($user) {
                 Article::factory(rand(1,100))->create([

@@ -4,8 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Articles Management') }}
             </h2>
-            <a class="bg-slate-100 rounded px-2 py-4 hover:bg-blue-300 hover:text-blue-700"
-                href="{{ route('articles.create') }}">Create New Article</a>
+            @can('create', \App\Models\Article::class)
+                <a class="bg-slate-100 rounded px-2 py-4 hover:bg-blue-300 hover:text-blue-700"
+                    href="{{ route('articles.create') }}">Create New Article</a>
+            @endcan
         </div>
     </x-slot>
 
