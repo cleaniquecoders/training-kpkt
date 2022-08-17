@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Notifications\Welcome;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -38,3 +39,24 @@ Artisan::command('send:notification', function () {
 
     $this->info("Notification successfully sent to $user->email");
 })->purpose('Send welcome email to given email');
+
+
+Artisan::command('encrypt {value}', function () {
+    $value = $this->argument('value');
+
+    $encrypted_value = Crypt::encryptString($value);
+
+    $this->info("$value has been encrypted to:");
+    $this->info($encrypted_value);
+
+})->purpose('Encrypt given value');
+
+Artisan::command('decrypt {value}', function () {
+    $value = $this->argument('value');
+
+    $decrypted_value = Crypt::decryptString($value);
+
+    $this->info("$value has been decrypted to:");
+    $this->info($decrypted_value);
+    
+})->purpose('Encrypt given value');
