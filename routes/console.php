@@ -44,7 +44,8 @@ Artisan::command('send:notification', function () {
 Artisan::command('encrypt {value}', function () {
     $value = $this->argument('value');
 
-    $encrypted_value = Crypt::encryptString($value);
+    // $encrypted_value = Crypt::encryptString($value);
+    $encrypted_value = encrypt($value);
 
     $this->info("$value has been encrypted to:");
     $this->info($encrypted_value);
@@ -54,7 +55,8 @@ Artisan::command('encrypt {value}', function () {
 Artisan::command('decrypt {value}', function () {
     $value = $this->argument('value');
 
-    $decrypted_value = Crypt::decryptString($value);
+    // $decrypted_value = Crypt::decryptString($value);
+    $decrypted_value = decrypt($value);
 
     $this->info("$value has been decrypted to:");
     $this->info($decrypted_value);
