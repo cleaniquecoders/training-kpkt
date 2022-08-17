@@ -59,6 +59,14 @@ class ArticlePolicy
     public function update(User $user, Article $article)
     {
         return $user->id === $article->user_id;
+        // @can('update', $article)
+        // $this->authorize('update', $article)
+        // Gate::allow('update', $article)
+        // if($user->isLocked()) {
+        //     return false;
+        // }
+        // return $user->id === $article->user_id 
+        //     || $user->hasPermission('update-article');
     }
 
     /**
