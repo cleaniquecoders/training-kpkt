@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\UserController as ApiUserController;
+use App\Http\Controllers\UserController;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -22,25 +24,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/user/{email}', function (Request $request, string $email) {
-    try {
-        $user = User::whereEmail($email)->with('articles')->firstOrFail();
-
-        return new UserResource($user);
-    } catch (\Throwable $th) {
-        if($th instanceof ModelNotFoundException) {
-            $code = $th instanceof ModelNotFoundException ? 404 : $th->getCode();
-            $message = $th instanceof ModelNotFoundException ? 'Record not found' : $th->getMessage();
-        }
-
-        return response()->json([
-            'message' => $message,
-        ], $code);
-    }
-});
-
-Route::get('/user', function (Request $request) {
-    return new UserCollection(
-        User::paginate()
-    );
-});
+Route::apiResource('user', ApiUserController::class);
