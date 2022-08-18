@@ -24,4 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::apiResource('user', ApiUserController::class);
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('user', ApiUserController::class);
+});
+
