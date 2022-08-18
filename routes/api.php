@@ -3,6 +3,7 @@
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,20 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/user/{email}', function (Request $request, string $email) {
-    $user = User::whereEmail($email)->firstOrFail();
+    try {
+        $user = User::whereEmail($email)->with('articles')->firstOrFail();
 
-    return new UserResource($user);
+        return new UserResource($user);
+    } catch (\Throwable $th) {
+        if($th instanceof ModelNotFoundException) {
+            $code = $th instanceof ModelNotFoundException ? 404 : $th->getCode();
+            $message = $th instanceof ModelNotFoundException ? 'Record not found' : $th->getMessage();
+        }
+
+        return response()->json([
+            'message' => $message,
+        ], $code);
+    }
 });
 
 Route::get('/user', function (Request $request) {

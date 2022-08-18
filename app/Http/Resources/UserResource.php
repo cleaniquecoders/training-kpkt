@@ -14,10 +14,16 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $data = [
             'name' => $this->name,
             'email' => $this->email,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
+
+        if($request->articles) {
+            $data['articles'] = ArticleResource::collection($this->articles);
+        }
+        
+        return $data;
     }
 }
